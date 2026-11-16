@@ -717,9 +717,9 @@ _CHAVES_DO_ADMIN = {}
 if os.getenv("DEEPSEEK_API_KEY") and not app.get("deepseek_api_key"):
     _CHAVES_DO_ADMIN["deepseek_api_key"] = os.environ["DEEPSEEK_API_KEY"]
     app["deepseek_api_key"] = os.environ["DEEPSEEK_API_KEY"]
-if os.getenv("PEXELS_API_KEY") and not app.get("pexels_api_keys"):
-    _CHAVES_DO_ADMIN["pexels_api_keys"] = [os.environ["PEXELS_API_KEY"]]
-    app["pexels_api_keys"] = [os.environ["PEXELS_API_KEY"]]
+if os.getenv("PIXABAY_API_KEY") and not app.get("pixabay_api_keys"):
+    _CHAVES_DO_ADMIN["pixabay_api_keys"] = [os.environ["PIXABAY_API_KEY"]]
+    app["pixabay_api_keys"] = [os.environ["PIXABAY_API_KEY"]]
 
 ffmpeg_path = app.get("ffmpeg_path", "")
 if ffmpeg_path:
