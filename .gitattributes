@@ -14,3 +14,5 @@
 *.otf binary
 *.woff binary
 *.woff2 binary
+swipe/*.sh text eol=lf
+swipe/*.py text eol=lf

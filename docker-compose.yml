@@ -7,6 +7,10 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: "moneyprinterturbo-webui"
+    entrypoint: ["sh", "/MoneyPrinterTurbo/swipe/iniciar.sh"]
+    env_file:
+      - path: ./swipe/.env
+        required: false
     ports:
       - "8501:8501"
     command: [ "streamlit", "run", "./webui/Main.py", "--server.address=0.0.0.0", "--server.port=8501", "--server.enableCORS=True", "--browser.gatherUsageStats=False", "--client.toolbarMode=minimal", "--logger.hideWelcomeMessage=True", "--server.showEmailPrompt=False" ]
@@ -17,6 +21,10 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: "moneyprinterturbo-api"
+    entrypoint: ["sh", "/MoneyPrinterTurbo/swipe/iniciar.sh"]
+    env_file:
+      - path: ./swipe/.env
+        required: false
     ports:
       - "127.0.0.1:8081:8080"
     command: [ "python3", "main.py" ]

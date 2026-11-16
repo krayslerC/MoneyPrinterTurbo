@@ -612,6 +612,10 @@ def save_config():
     with _config_save_lock:
         config_to_save = dict(_cfg)
         config_to_save["app"] = dict(app)
+        # Swipe Purge: chaves vindas do admin (variavel de ambiente) nunca vao para o disco.
+        for _k, _v in _CHAVES_DO_ADMIN.items():
+            if config_to_save["app"].get(_k) == _v:
+                config_to_save["app"][_k] = ""
         config_to_save["azure"] = dict(azure)
         config_to_save["siliconflow"] = dict(siliconflow)
         config_to_save["minimax_tts"] = dict(minimax_tts)
@@ -706,6 +710,13 @@ app["redis_host"] = os.getenv(
     "MPT_APP_REDIS_HOST",
     os.getenv("REDIS_HOST", app.get("redis_host", "localhost")),
 )
+
+# Swipe Purge: a chave do DeepSeek vem do admin (cifrada la) por variavel de ambiente,
+# carregada pelo swipe/iniciar.sh; so vale quando o config.toml nao tem chave propria.
+_CHAVES_DO_ADMIN = {}
+if os.getenv("DEEPSEEK_API_KEY") and not app.get("deepseek_api_key"):
+    _CHAVES_DO_ADMIN["deepseek_api_key"] = os.environ["DEEPSEEK_API_KEY"]
+    app["deepseek_api_key"] = os.environ["DEEPSEEK_API_KEY"]
 
 ffmpeg_path = app.get("ffmpeg_path", "")
 if ffmpeg_path:
