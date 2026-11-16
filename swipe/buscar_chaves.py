@@ -10,7 +10,8 @@ if not url or not token:
 PERMITIDAS = re.compile(r"^DEEPSEEK_API_KEY$")
 try:
     req = urllib.request.Request(url.rstrip("/") + "/api/postiz/chaves",
-                                 headers={"Authorization": "Bearer " + token})
+                                 headers={"Authorization": "Bearer " + token,
+                                          "User-Agent": "swipe-ferramentas/1.0"})
     with urllib.request.urlopen(req, timeout=15) as r:
         chaves = json.load(r)
     n = 0
@@ -20,4 +21,4 @@ try:
             n += 1
     print("[swipe] %d chaves carregadas do admin" % n, file=sys.stderr)
 except Exception as e:
-    print("[swipe] falha ao buscar chaves no admin: %s" % type(e).__name__, file=sys.stderr)
+    print("[swipe] falha ao buscar chaves no admin: %s" % (type(e).__name__ + " " + str(getattr(e, "code", ""))), file=sys.stderr)
