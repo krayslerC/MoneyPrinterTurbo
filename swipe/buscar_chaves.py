@@ -7,7 +7,7 @@ token = os.getenv("POSTIZ_ADMIN_TOKEN")
 if not url or not token:
     print("[swipe] sem ADMIN_URL/POSTIZ_ADMIN_TOKEN: chaves nao carregadas", file=sys.stderr)
     sys.exit(0)
-PERMITIDAS = re.compile(r"^DEEPSEEK_API_KEY$")
+PERMITIDAS = re.compile(r"^(DEEPSEEK|PEXELS)_API_KEY$")
 try:
     req = urllib.request.Request(url.rstrip("/") + "/api/postiz/chaves",
                                  headers={"Authorization": "Bearer " + token,
